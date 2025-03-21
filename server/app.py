@@ -5,10 +5,17 @@ from flask import Flask, make_response, request, session
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_cors import CORS
+import os
 
 from models import db, Hotel, Customer, Review
 
 app = Flask(__name__)
+
+# Here's the secret key value that will be used for the session object
+app.secret_key = b'ASKFNS241KNSFW49108234'
+
+# Here's a potential more best practice approach for storing the secret key value
+app.secret_key = os.urandom(16)
 
 # configure a database connection to the local file examples.db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hotels.db'
@@ -271,3 +278,18 @@ api.add_resource(ReviewByID, '/reviews/<int:id>')
 
 if __name__ == "__main__":
     app.run(port=7777, debug=True)
+
+
+
+
+
+
+
+
+# ipdb
+# session
+# <SecureCookieSession {}>
+# session['my_cookie'] = 34
+# <SecureCookieSession {'my_cookie':34} 
+# session.???.get('my_cookie') 
+# >>>34
